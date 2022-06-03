@@ -3,7 +3,7 @@ import { Box, Button, Grid, IconButton, Typography, useTheme } from "@mui/materi
 import { DataGrid } from '@mui/x-data-grid';
 import { useEffect, useState } from "react";
 import * as XLSX from 'xlsx'
-import { getAll,frezzenYear} from './service.js';
+import { getAll,frezzenYear,update} from './service.js';
 
 
 function DemoTable(){
@@ -210,15 +210,16 @@ function DemoTable(){
                         dataUpdate = {id: objectUpd.id, budget: Number(params.value)};
                     }
                 
-                   return  arrUpdate.push(dataUpdate);
+                   arrUpdate.push(dataUpdate);
                 }
             }
         }
       };
 
-       function update() {
+    async   function updateTable() {
       console.log(arrUpdate,'arrupdate12')
-         // await update(arrUpdate);
+          await update(arrUpdate);
+          getRows()
         //console.log(response)
       }
 
@@ -285,7 +286,7 @@ function DemoTable(){
              components={{Toolbar: CustomToolbar, Footer: CustomFooter}}
              />
             <div style ={{float: 'right'}}>
-             <Button variant="contained" onClick={update}>Save</Button>
+             <Button variant="contained" onClick={updateTable}>Save</Button>
              <Button variant="outlined" disabled sx= {{padding: 1, margin: 1}}>Cancel</Button>
             </div>
         </Box>
